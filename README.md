@@ -329,24 +329,4 @@ Saint-Petersburg     2.3°C        5.8°C      -3.5°C     100
 
 ---
 
-## Features Summary
-
-| Feature | Status |
-|---------|--------|
-| Async data collection
-| Multi-city support
-| Configurable periods
-| Temperature analysis
-| Precipitation analysis
-| Insight generation
-| Quality validation
-| HTML dashboard
-| Text reports
-| JSON export
-| SQL database
-| Error handling
-| Logging
-
----
-
 **Ready to analyze weather data? Start with `python main.py`!** 
