@@ -2,7 +2,7 @@
 
 **Complete weather data analysis system with data collection, quality assurance, insights generation, and interactive visualization.**
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Requirements
 ```bash
@@ -11,11 +11,7 @@ pip install aiohttp matplotlib
 
 ### Generate Temperature Charts
 ```bash
-# Collect data and generate charts
 python main.py
-
-# Or just generate charts from existing data
-python generate_charts.py
 ```
 
 ### View Results
@@ -38,7 +34,7 @@ python main.py --days 14 --cities Moscow Sochi  # 14 days, specific cities
 
 ---
 
-## 📊 Project Structure
+## Project Structure
 
 ```
 weather-platform/
@@ -64,7 +60,7 @@ weather-platform/
 
 ---
 
-## 📋 Pipeline Stages
+## Pipeline Stages
 
 ### Stage 1: Data Collection (`data_collector.py`)
 - **Async parallel collection** from Open-Meteo API (10+ cities simultaneously)
@@ -80,15 +76,6 @@ weather-platform/
 python data_collector.py
 ```
 
-**Or in code:**
-```python
-from data_collector import DataCollector
-import asyncio
-
-collector = DataCollector(forecast_days=10)
-data = asyncio.run(collector.collect_batch(collector.DEFAULT_CITIES))
-```
-
 ---
 
 ### Stage 2: Data Analysis (`data_analyzer.py`)
@@ -98,28 +85,14 @@ data = asyncio.run(collector.collect_batch(collector.DEFAULT_CITIES))
 - **Pattern detection** (climate comparison, extremes, anomalies)
 
 **Output insights include:**
-- 🌡️ High/Low temperature warnings
-- 💧 Heavy rainfall alerts
-- 📊 Climate anomalies
-- 🎯 Actionable recommendations
+- High/Low temperature warnings
+- Heavy rainfall alerts
+- Climate anomalies
+- Actionable recommendations
 
 **Usage:**
 ```bash
 python data_analyzer.py
-```
-
-**Or in code:**
-```python
-from data_analyzer import DataAnalyzer
-
-analyzer = DataAnalyzer()
-trends = analyzer.analyze_temperature_trends()
-precip = analyzer.analyze_precipitation()
-insights = analyzer.generate_insights()
-
-for insight in insights:
-    print(f"{insight['city']}: {insight['message']}")
-    print(f"Action: {insight['recommendation']}")
 ```
 
 ---
@@ -148,17 +121,6 @@ for insight in insights:
 python data_quality.py
 ```
 
-**Or in code:**
-```python
-from data_quality import DataQuality
-
-quality = DataQuality()
-report = quality.generate_quality_report()
-
-print(f"Quality Score: {report['quality_score']:.1f}%")
-print(f"Completeness: {report['metrics']['avg_completeness']:.1f}%")
-```
-
 ---
 
 ### Stage 4: Visualization (`data_visualizer.py` + `chart_generator.py`)
@@ -174,28 +136,11 @@ print(f"Completeness: {report['metrics']['avg_completeness']:.1f}%")
 
 **Usage:**
 ```bash
-# Generate charts after collecting data
-python main.py
-
-# Or just generate charts from existing data
 python generate_charts.py
 ```
-
-**Or in code:**
-```python
-from chart_generator import TemperatureChartGenerator
-
-generator = TemperatureChartGenerator('data/weather_data.db')
-hourly_files = generator.generate_hourly_charts()
-daily_files = generator.generate_daily_charts()
-
-for chart_file in hourly_files + daily_files:
-    print(f"Generated: {chart_file}")
-```
-
 ---
 
-## 🎯 Main Entry Point (`main.py`)
+## Main Entry Point (`main.py`)
 
 Orchestrates all stages with options:
 
@@ -227,7 +172,7 @@ python main.py --collect --visualize
 
 ---
 
-## 📊 Supported Cities (Default)
+## Supported Cities (Default)
 
 | City | Region | Coordinates |
 |------|--------|-------------|
@@ -252,7 +197,7 @@ cities = [
 
 ---
 
-## 💾 Data Storage
+## Data Storage
 
 **SQLite Database:** `data/weather_data.db`
 
@@ -270,7 +215,7 @@ SELECT * FROM weather_daily WHERE city='Moscow' LIMIT 3;
 
 ---
 
-## 📈 Output Examples
+## Output Examples
 
 ### JSON Analytics Report
 ```json
@@ -326,7 +271,7 @@ Saint-Petersburg     2.3°C        5.8°C      -3.5°C     100
 
 ---
 
-## 🔍 Performance Metrics
+## Performance Metrics
 
 | Metric | Value |
 |--------|-------|
@@ -337,55 +282,10 @@ Saint-Petersburg     2.3°C        5.8°C      -3.5°C     100
 | Report Generation | < 2 seconds |
 | Quality Check | < 1 second |
 
----
-
-## 🛠️ Advanced Usage
-
-### Custom Analysis
-```python
-from data_analyzer import DataAnalyzer
-
-analyzer = DataAnalyzer()
-
-# Get temperature trends
-trends = analyzer.analyze_temperature_trends()
-for city, data in trends.items():
-    print(f"{city}: {len(data)} days of data")
-
-# Get precipitation data
-precip = analyzer.analyze_precipitation()
-for city, stats in precip.items():
-    print(f"{city}: {stats['total']}mm total, {stats['days']} rainy days")
-```
-
-### Direct Database Queries
-```python
-import sqlite3
-
-with sqlite3.connect('data/weather_data.db') as conn:
-    cursor = conn.execute('''
-        SELECT city, AVG(temperature) as avg_temp
-        FROM weather_current
-        GROUP BY city
-        ORDER BY avg_temp DESC
-    ''')
-    
-    for city, avg_temp in cursor:
-        print(f"{city}: {avg_temp:.1f}°C")
-```
-
-### Continuous Monitoring
-```bash
-# Run every hour
-while true; do
-    python main.py --collect
-    sleep 3600
-done
-```
 
 ---
 
-## 🎓 What You'll Learn
+## What You'll Learn
 
 - ✅ Asynchronous Python (asyncio, aiohttp)
 - ✅ REST API integration
@@ -397,122 +297,31 @@ done
 
 ---
 
-## 📝 Example Workflow
-
-```bash
-# 1. Collect data for 7 days
-python main.py --days 7 --collect
-
-# 2. Analyze and generate insights
-python main.py --analyze
-
-# 3. Check data quality
-python main.py --quality
-
-# 4. Create visualizations
-python main.py --visualize
-
-# 5. View results in results/ folder
-ls results/
-```
-
----
-
-## ⚠️ Troubleshooting
-
-**Problem:** `ModuleNotFoundError: No module named 'aiohttp'`
-```bash
-pip install aiohttp
-```
-
-**Problem:** API not responding
-- Check internet connection
-- API may be temporarily unavailable (try again later)
-
-**Problem:** No data in database
-- Ensure collection ran successfully: `python data_collector.py`
-- Check logs: `cat logs/weather_platform.log`
-
-**Problem:** Permission denied
-- Run terminal as administrator (Windows)
-- Or use: `sudo python main.py` (Linux/Mac)
-
----
-
-## 📊 Data Flow Diagram
-
-```
-┌─────────────┐
-│ Open-Meteo  │
-│    API      │
-└──────┬──────┘
-       │
-       ▼
-┌──────────────────────────┐
-│ data_collector.py        │ ◄─ Stage 1: Async Collection
-│ (10 cities parallel)     │
-└──────┬───────────────────┘
-       │
-       ▼
-┌──────────────────────────┐
-│ data/weather_data.db     │
-│ (SQLite 3 tables)        │ ◄─ Stage 5: Storage
-└──────┬───────────────────┘
-       │
-       ├──────────────────────────┐
-       │                          │
-       ▼                          ▼
-┌──────────────────────┐  ┌──────────────────────┐
-│ data_analyzer.py     │  │ data_quality.py      │
-│ (Insights)           │  │ (Validation)         │
-└──────┬───────────────┘  └──────┬───────────────┘
-       │                         │
-       ├─────────────┬───────────┤
-       │             │           │
-       ▼             ▼           ▼
-    insights    quality_report  completeness
-       │             │           │
-       └─────────────┼───────────┘
-                     │
-                     ▼
-         ┌──────────────────────────┐
-         │ data_visualizer.py       │
-         │ (HTML, TXT, JSON)        │ ◄─ Stage 4: Visualization
-         └──────┬───────────────────┘
-                │
-                ├────────────────┬─────────────┐
-                ▼                ▼             ▼
-           dashboard.html   report.txt   analytics.json
-           (Interactive)    (ASCII)      (Structured)
-```
-
----
-
 ## 🎯 Use Cases
 
-### 🚗 Transportation & Logistics
+### Transportation & Logistics
 - Route optimization based on weather
 - Frost/ice warnings for safety
 - Fuel consumption prediction
 
-### ⚡ Energy Management
+### Energy Management
 - Heating/cooling demand forecasting
 - Energy consumption optimization
 - Peak load planning
 
-### 🌾 Agriculture
+### Agriculture
 - Irrigation scheduling
 - Crop yield prediction
 - Frost/hail damage prevention
 
-### 🏥 Public Health
+### Public Health
 - Disease spread correlation
 - Heat-related illness prevention
 - Air quality monitoring
 
 ---
 
-## 📞 Support & Documentation
+## Support & Documentation
 
 - **Logs:** `logs/weather_platform.log`
 - **Results:** `results/` folder
@@ -520,62 +329,24 @@ pip install aiohttp
 
 ---
 
-## ✨ Features Summary
+## Features Summary
 
 | Feature | Status |
 |---------|--------|
-| Async data collection | ✅ |
-| Multi-city support | ✅ |
-| Configurable periods | ✅ |
-| Temperature analysis | ✅ |
-| Precipitation analysis | ✅ |
-| Insight generation | ✅ |
-| Quality validation | ✅ |
-| Anomaly detection | ✅ |
-| HTML dashboard | ✅ |
-| Text reports | ✅ |
-| JSON export | ✅ |
-| SQL database | ✅ |
-| Error handling | ✅ |
-| Logging | ✅ |
+| Async data collection
+| Multi-city support
+| Configurable periods
+| Temperature analysis
+| Precipitation analysis
+| Insight generation
+| Quality validation
+| HTML dashboard
+| Text reports
+| JSON export
+| SQL database
+| Error handling
+| Logging
 
 ---
 
-## 📈 Version & Status
-
-- **Version:** 2.0
-- **Status:** ✅ Production Ready
-- **Python:** 3.8+
-- **License:** MIT
-- **Last Updated:** 2024-01-15
-
----
-
-## 🎉 Quick Commands Reference
-
-```bash
-# Full pipeline (collect + analyze + quality + charts)
-python main.py
-
-# Just generate PNG charts from existing data
-python generate_charts.py
-
-# Collect data for specific period and cities
-python main.py --days 14 --cities Moscow Sochi Vladivostok
-
-# Single stages
-python data_collector.py      # Collect only
-python data_analyzer.py       # Analyze only
-python data_quality.py        # Quality check only
-python generate_charts.py     # Generate PNG charts
-
-# View logs
-tail -f logs/weather_platform.log
-
-# List generated charts
-ls -la results/*.png
-```
-
----
-
-**Ready to analyze weather data? Start with `python main.py`!** 🌤️
+**Ready to analyze weather data? Start with `python main.py`!** 
